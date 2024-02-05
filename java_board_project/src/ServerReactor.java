@@ -17,8 +17,8 @@ public class ServerReactor extends Thread {
 	public ServerReactor(Socket socket) {
 		this.socket = socket;
 		try {
-			in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-			out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+			in = new DataInputStream(socket.getInputStream());
+			out = new DataOutputStream(socket.getOutputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -29,8 +29,22 @@ public class ServerReactor extends Thread {
 		try {
 			out.writeUTF(Board.monitor());
 			System.out.println("연결");
+
 			while (in != null) {
-				switch (Integer.parseInt(in.readUTF())) {
+				try {
+					tempNum = Integer.parseInt(in.readUTF());
+				} catch (Exception e) {
+					out.writeUTF("잘못된 입력입니다.\n");
+					out.writeUTF(Board.listMonitor());
+					if (BoardBack.getSize() > 0) {
+						for (int i = 0; i < BoardBack.getSize(); i++) {
+							out.writeUTF(BoardBack.getSimplePost(i + 1));
+						}
+					}
+					out.writeUTF(Board.listMonitor2());
+					continue;
+				}
+				switch (tempNum) {
 				case 1: {
 					out.writeUTF(Board.listMonitor());
 					if (BoardBack.getSize() > 0) {
@@ -73,7 +87,7 @@ public class ServerReactor extends Thread {
 							throw new Exception();
 						}
 					} catch (Exception e) {
-						out.writeUTF("잘못된 입력입니다.");
+						out.writeUTF("잘못된 입력입니다.\n");
 						out.writeUTF(Board.listMonitor());
 						if (BoardBack.getSize() > 0) {
 							for (int i = 0; i < BoardBack.getSize(); i++) {
@@ -107,7 +121,7 @@ public class ServerReactor extends Thread {
 							throw new Exception();
 						}
 					} catch (Exception e) {
-						out.writeUTF("잘못된 입력입니다.");
+						out.writeUTF("잘못된 입력입니다.\n");
 						out.writeUTF(Board.listMonitor());
 						if (BoardBack.getSize() > 0) {
 							for (int i = 0; i < BoardBack.getSize(); i++) {
@@ -119,10 +133,18 @@ public class ServerReactor extends Thread {
 					break;
 				}
 				case 0: {
+					out.writeUTF(null);
 					throw new Exception();
 				}
 				default: {
-					out.writeUTF("잘못된 입력입니다.");
+					out.writeUTF("잘못된 입력입니다.\n");
+					out.writeUTF(Board.listMonitor());
+					if (BoardBack.getSize() > 0) {
+						for (int i = 0; i < BoardBack.getSize(); i++) {
+							out.writeUTF(BoardBack.getSimplePost(i + 1));
+						}
+					}
+					out.writeUTF(Board.listMonitor2());
 				}
 
 				}

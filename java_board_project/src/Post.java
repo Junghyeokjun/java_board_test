@@ -48,10 +48,10 @@ public class Post {
 		this.time = time;
 	}
 	public String getSimplePost() {
-		return BoardBack.getIndex(this) +" "+ this.getTitle()+" "+this.getName()+" "+this.getTime();
+		return (BoardBack.getIndex(this)+1) +" "+ this.getTitle()+" "+this.getName()+" "+this.getTime()+"\n";
 	}
 	public String getPost() {
-		return BoardBack.getIndex(this) +" "+this.getTitle()+" "+this.getDetail()+" "+this.getName()+" "+this.getTime();
+		return (BoardBack.getIndex(this)+1) +" "+this.getTitle()+" "+this.getDetail()+" "+this.getName()+" "+this.getTime()+"\n";
 	}
 	
 }

@@ -17,7 +17,7 @@ public class Board {
 	// 목록
 	public static String listMonitor() {
 
-		return monitor0 + "\n" + monitor4 + "\n" + monitor2+ "\n";
+		return monitor0 + "\n" + monitor1 + "\n" + monitor2+ "\n";
 	}
 
 	public static String listMonitor2() {

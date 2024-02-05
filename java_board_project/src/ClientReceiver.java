@@ -9,7 +9,7 @@ public class ClientReceiver extends Thread {
 	public ClientReceiver(Socket socket) {
 		this.socket=socket;
 		try {
-			in=new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+			in=new DataInputStream(socket.getInputStream());
 		} catch (Exception e) {
 			System.out.println("연결에 실패했습니다.");
 		}
@@ -17,7 +17,7 @@ public class ClientReceiver extends Thread {
 	}
 	@Override
 	public void run() {
-		while(true) {
+		while(in!=null) {
 			try {
 				System.out.print(in.readUTF());
 			} catch (IOException e) {
