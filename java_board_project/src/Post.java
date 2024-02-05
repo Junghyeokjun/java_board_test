@@ -48,9 +48,10 @@ public class Post {
 		this.time = time;
 	}
 	public String getSimplePost() {
-		return this.getTitle()+" "+this.getName()+" "+this.getTime();
+		return BoardBack.getIndex(this) +" "+ this.getTitle()+" "+this.getName()+" "+this.getTime();
 	}
 	public String getPost() {
-		return this.getTitle()+" "+this.getDetail()+" "+this.getName()+" "+this.getTime();
+		return BoardBack.getIndex(this) +" "+this.getTitle()+" "+this.getDetail()+" "+this.getName()+" "+this.getTime();
 	}
+	
 }

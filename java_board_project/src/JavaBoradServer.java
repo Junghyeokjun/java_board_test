@@ -8,14 +8,17 @@ public class JavaBoradServer {
 		Socket socket = null;
 		
 		try {
-			serverSocket=new ServerSocket(7777);
+			serverSocket=new ServerSocket(12458);
 			while(true){//늘 돌아간다는 가정
 				socket=serverSocket.accept();
+				System.out.println("연결완료");
+				ServerReactor serverReactor=new ServerReactor(socket);
 				
-				ServerReceiver serverReceiver=new ServerReceiver(socket);
+				serverReactor.start();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("서버가 종료되었습니다.");
 		}
 		
 		
