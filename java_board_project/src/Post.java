@@ -15,7 +15,12 @@ public class Post {
 		this.setName(name);
 		this.setTime(now.format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss")));
 	}
-
+	public Post(String title, String detail, String name,String time) {
+		this.setTitle(title);
+		this.setDetail(detail);
+		this.setName(name);
+		this.setTime(time);
+	}
 	public String getDetail() {
 		return detail;
 	}
@@ -53,5 +58,7 @@ public class Post {
 	public String getPost() {
 		return (BoardBack.getIndex(this)+1) +" "+this.getTitle()+" "+this.getDetail()+" "+this.getName()+" "+this.getTime()+"\n";
 	}
-	
+	public String getAddPost() {
+		return this.getTitle()+" "+this.getDetail()+" "+this.getName()+" "+this.getTime()+"\n";
+	}
 }

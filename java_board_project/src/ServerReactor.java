@@ -1,5 +1,3 @@
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -24,24 +22,27 @@ public class ServerReactor extends Thread {
 		}
 	}
 
+	public void catchMonitor(DataOutputStream out) throws Exception {
+		out.writeUTF(Board.listMonitor());
+		if (BoardBack.getSize() > 0) {
+			for (int i = 0; i < BoardBack.getSize(); i++) {
+				out.writeUTF(BoardBack.getSimplePost(i + 1));
+			}
+		}
+		out.writeUTF(Board.listMonitor2());
+	}
+
 	@Override
 	public void run() {
 		try {
-			out.writeUTF(Board.monitor());
+			catchMonitor(out);
 			System.out.println("연결");
 
 			while (in != null) {
 				try {
 					tempNum = Integer.parseInt(in.readUTF());
 				} catch (Exception e) {
-					out.writeUTF("잘못된 입력입니다.\n");
-					out.writeUTF(Board.listMonitor());
-					if (BoardBack.getSize() > 0) {
-						for (int i = 0; i < BoardBack.getSize(); i++) {
-							out.writeUTF(BoardBack.getSimplePost(i + 1));
-						}
-					}
-					out.writeUTF(Board.listMonitor2());
+					catchMonitor(out);
 					continue;
 				}
 				switch (tempNum) {
@@ -88,13 +89,8 @@ public class ServerReactor extends Thread {
 						}
 					} catch (Exception e) {
 						out.writeUTF("잘못된 입력입니다.\n");
-						out.writeUTF(Board.listMonitor());
-						if (BoardBack.getSize() > 0) {
-							for (int i = 0; i < BoardBack.getSize(); i++) {
-								out.writeUTF(BoardBack.getSimplePost(i + 1));
-							}
-						}
-						out.writeUTF(Board.listMonitor2());
+						catchMonitor(out);
+
 					}
 					break;
 				}
@@ -122,13 +118,7 @@ public class ServerReactor extends Thread {
 						}
 					} catch (Exception e) {
 						out.writeUTF("잘못된 입력입니다.\n");
-						out.writeUTF(Board.listMonitor());
-						if (BoardBack.getSize() > 0) {
-							for (int i = 0; i < BoardBack.getSize(); i++) {
-								out.writeUTF(BoardBack.getSimplePost(i + 1));
-							}
-						}
-						out.writeUTF(Board.listMonitor2());
+						catchMonitor(out);
 					}
 					break;
 				}
@@ -138,13 +128,7 @@ public class ServerReactor extends Thread {
 				}
 				default: {
 					out.writeUTF("잘못된 입력입니다.\n");
-					out.writeUTF(Board.listMonitor());
-					if (BoardBack.getSize() > 0) {
-						for (int i = 0; i < BoardBack.getSize(); i++) {
-							out.writeUTF(BoardBack.getSimplePost(i + 1));
-						}
-					}
-					out.writeUTF(Board.listMonitor2());
+					catchMonitor(out);
 				}
 
 				}

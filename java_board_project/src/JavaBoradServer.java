@@ -6,9 +6,11 @@ public class JavaBoradServer {
 	public static void main(String[] args) {
 		ServerSocket serverSocket = null;
 		Socket socket = null;
-		
 		try {
+			BoardBack.initBoard();
 			serverSocket=new ServerSocket(12458);
+			
+			
 			while(true){//늘 돌아간다는 가정
 				socket=serverSocket.accept();
 				System.out.println("연결완료");

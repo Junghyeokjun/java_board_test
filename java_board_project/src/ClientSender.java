@@ -1,4 +1,3 @@
-import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -12,7 +11,7 @@ public class ClientSender extends Thread {
 		this.socket=socket;
 		
 		try {
-			out=new DataOutputStream(socket.getOutputStream());
+			out=new DataOutputStream(this.socket.getOutputStream());
 		} catch (IOException e) {
 			System.out.println("연결에 실패했습니다.");
 		}
@@ -35,6 +34,7 @@ public class ClientSender extends Thread {
 				System.exit(0);
 			}
 		}
+		sc.close();
 	}
 
 

@@ -1,4 +1,3 @@
-import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -9,7 +8,7 @@ public class ClientReceiver extends Thread {
 	public ClientReceiver(Socket socket) {
 		this.socket=socket;
 		try {
-			in=new DataInputStream(socket.getInputStream());
+			in=new DataInputStream(this.socket.getInputStream());
 		} catch (Exception e) {
 			System.out.println("연결에 실패했습니다.");
 		}

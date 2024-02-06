@@ -9,11 +9,6 @@ public class Board {
 	private final static String monitor7 = "글이 추가되지 않았습니다.";
 
 
-	// 초기
-	public static String monitor() {
-
-		return monitor0 + "\n" + monitor1 + "\n" + monitor2 + "\n" + monitor3;
-	}
 	// 목록
 	public static String listMonitor() {
 
